@@ -13,9 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         Drawable icoGamePass;
         try {
             icoGamePass = this.getPackageManager().getApplicationIcon("com.gamepass");
-            if (icoGamePass !=null) {
-                ImageButton xcButton = (ImageButton) findViewById(R.id.btn_xcloud);
+            if (icoGamePass != null) {
+                ImageButton xcButton = findViewById(R.id.btn_xcloud);
                 xcButton.setImageDrawable(icoGamePass);
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -94,24 +92,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Drawable icoStadia = null;
+        Drawable icoStadia;
         try {
             icoStadia = this.getPackageManager().getApplicationIcon("com.google.stadia.android");
+            if (icoStadia != null) {
+                ImageButton sButton = findViewById(R.id.btn_stadia);
+                sButton.setImageDrawable(icoStadia);
+            }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            Log.d("DEBUG", "Stadia app is not installed.");
         }
-        ImageButton sButton = (ImageButton) findViewById(R.id.btn_stadia);
-        sButton.setImageDrawable(icoStadia);
 
-        Drawable icoGFN = null;
+
+        Drawable icoGFN;
         try {
             icoGFN = this.getPackageManager().getApplicationIcon("com.nvidia.geforcenow");
+            if (icoGFN != null) {
+                ImageButton gfnButton = findViewById(R.id.btn_gnow);
+                gfnButton.setImageDrawable(icoGFN);
+            }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            Log.d("DEBUG", "GeForce Now app is not installed.");
         }
-        ImageButton gfnButton = (ImageButton) findViewById(R.id.btn_gnow);
-        gfnButton.setImageDrawable(icoGFN);
-
     }
 
     public void launchXcloud(View view) {
