@@ -21,10 +21,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setBatIcon();
+        }
+    };
     private TextView batteryText;
     private BroadcastReceiver minuteUpdateReceiver;
     private String displayBat;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         batteryText = findViewById(R.id.tv_bat);
         batteryText.setText(String.format("%s%%", getBattery()));
-        setBatIcon();
         setIcons();
+        registerBatteryReceiver();
     }
 
     public void startMinuteUpdater() {
@@ -54,18 +59,43 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(minuteUpdateReceiver, intentFilter);
     }
 
+    private void registerBatteryReceiver() {
+        IntentFilter batteryLevelFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(mBatteryReceiver, batteryLevelFilter);
+    }
+
     // Update the battery icon depending on the percentage.
     public void setBatIcon() {
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = this.registerReceiver(null, ifilter);
         int percent = Integer.parseInt(getBattery());
-        if (percent < 20) {
+
+        // How are we charging?
+        int chargePlug = 0;
+        if (batteryStatus != null) {
+            chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        }
+        boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+        boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+
+        // Update Icon
+        if (usbCharge || acCharge) {
             ImageView img = (ImageView) findViewById(R.id.iv_bat);
-            img.setImageResource(R.drawable.ico_battery_empty);
-        } else if (percent > 20 && percent < 80) {
-            ImageView img = (ImageView) findViewById(R.id.iv_bat);
-            img.setImageResource(R.drawable.ico_battery_half);
+            img.setImageResource(R.drawable.ico_battery_charging);
         } else {
-            ImageView img = (ImageView) findViewById(R.id.iv_bat);
-            img.setImageResource(R.drawable.ico_battery_full);
+            if (percent < 10) {
+                ImageView img = (ImageView) findViewById(R.id.iv_bat);
+                img.setImageResource(R.drawable.ico_battery_empty);
+            } else if (percent < 20 && percent > 10) {
+                ImageView img = (ImageView) findViewById(R.id.iv_bat);
+                img.setImageResource(R.drawable.ico_battery_low);
+            } else if (percent > 20 && percent < 80) {
+                ImageView img = (ImageView) findViewById(R.id.iv_bat);
+                img.setImageResource(R.drawable.ico_battery_half);
+            } else {
+                ImageView img = (ImageView) findViewById(R.id.iv_bat);
+                img.setImageResource(R.drawable.ico_battery_full);
+            }
         }
     }
 
@@ -73,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startMinuteUpdater();
+        setBatIcon();
     }
 
     @Override
