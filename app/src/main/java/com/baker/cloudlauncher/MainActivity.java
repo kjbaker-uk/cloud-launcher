@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         batteryText = findViewById(R.id.tv_bat);
         batteryText.setText(String.format("%s%%", getBattery()));
+        setBatIcon();
         setIcons();
     }
 
@@ -42,11 +44,29 @@ public class MainActivity extends AppCompatActivity {
         minuteUpdateReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                // Update battery percentage every minute.
                 displayBat = getBattery() + "%";
                 batteryText.setText(displayBat);
+                // Update battery icon every minute.
+                setBatIcon();
             }
         };
         registerReceiver(minuteUpdateReceiver, intentFilter);
+    }
+
+    // Update the battery icon depending on the percentage.
+    public void setBatIcon() {
+        int percent = Integer.parseInt(getBattery());
+        if (percent < 20) {
+            ImageView img = (ImageView) findViewById(R.id.iv_bat);
+            img.setImageResource(R.drawable.ico_battery_empty);
+        } else if (percent > 20 && percent < 80) {
+            ImageView img = (ImageView) findViewById(R.id.iv_bat);
+            img.setImageResource(R.drawable.ico_battery_half);
+        } else {
+            ImageView img = (ImageView) findViewById(R.id.iv_bat);
+            img.setImageResource(R.drawable.ico_battery_full);
+        }
     }
 
     @Override
