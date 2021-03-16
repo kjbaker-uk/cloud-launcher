@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.baker.cloudlauncher">
 
+
+    <queries>
+        <package android:name="com.gamepass" />
+        <package android:name="com.google.stadia.android" />
+        <package android:name="com.nvidia.geforcenow" />
+        <package android:name="com.razer.cortex" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

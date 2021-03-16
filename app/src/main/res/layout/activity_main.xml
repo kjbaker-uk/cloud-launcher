@@ -9,8 +9,9 @@
 
     <ImageButton
         android:id="@+id/btn_gnow"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginEnd="60dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="launchGnow"
         android:padding="5dp"
@@ -18,10 +19,7 @@
         android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.898"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
         app:srcCompat="@drawable/icoph" />
 
     <ImageButton
@@ -42,36 +40,33 @@
 
     <ImageButton
         android:id="@+id/btn_stadia"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="launchStadia"
         android:padding="5dp"
         android:scaleType="fitCenter"
         android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintEnd_toStartOf="@+id/btn_gnow"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toEndOf="@+id/btn_xcloud"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.497"
         app:srcCompat="@drawable/icoph" />
 
     <ImageButton
         android:id="@+id/btn_xcloud"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="52dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="launchXcloud"
         android:padding="5dp"
         android:scaleType="fitCenter"
         android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
         app:srcCompat="@drawable/icoph" />
 
     <ImageButton
@@ -141,27 +136,24 @@
         android:id="@+id/tv_bat"
         android:layout_width="59dp"
         android:layout_height="23dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="532dp"
         android:text="0 %"
         android:textAlignment="textStart"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_razer"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_bat"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04000002" />
+        app:layout_constraintVertical_bias="0.041" />
 
     <ImageView
         android:id="@+id/iv_bat"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_bat"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.026"
