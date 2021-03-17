@@ -2,12 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.baker.cloudlauncher">
 
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-permission android:name="android.permission.USB_PERMISSION" />
 
     <queries>
         <package android:name="com.gamepass" />
         <package android:name="com.google.stadia.android" />
         <package android:name="com.nvidia.geforcenow" />
-        <package android:name="com.razer.cortex" />
+        <package android:name="com.razer.mobilegamepad.en" />
+        <package android:name="com.google.android.youtube" />
+        <package android:name="com.android.chrome" />
     </queries>
 
     <application

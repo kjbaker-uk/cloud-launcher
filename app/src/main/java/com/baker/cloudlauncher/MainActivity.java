@@ -1,12 +1,12 @@
 package com.baker.cloudlauncher;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
@@ -16,11 +16,13 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    public boolean kishiConnected = false;
+    KishiManager km = new KishiManager();
     BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -39,8 +41,35 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         batteryText = findViewById(R.id.tv_bat);
         batteryText.setText(String.format("%s%%", getBattery()));
-        setIcons();
         registerBatteryReceiver();
+        setIcons();
+
+
+        BroadcastReceiver mUsbAttachReceiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+
+                if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+                    setBatIcon();
+                }
+            }
+        };
+
+        BroadcastReceiver mUsbDetachReceiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+                    setIcons();
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        registerReceiver(mUsbAttachReceiver, filter);
+        filter = new IntentFilter(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        registerReceiver(mUsbDetachReceiver, filter);
+
+
     }
 
     public void startMinuteUpdater() {
@@ -97,6 +126,16 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageResource(R.drawable.ico_battery_full);
             }
         }
+
+        if (km.isKishiConnected(getApplicationContext())) {
+            kishiConnected = true;
+            ImageView img = (ImageView) findViewById(R.id.iv_razer);
+            img.setImageResource(R.drawable.icon_razer);
+        } else {
+            kishiConnected = false;
+            ImageView img = (ImageView) findViewById(R.id.iv_razer);
+            img.setImageResource(R.drawable.icon_razer_unplugged);
+        }
     }
 
     @Override
@@ -109,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        setBatIcon();
         unregisterReceiver(minuteUpdateReceiver);
     }
 
@@ -116,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
+            km.isKishiConnected(getApplicationContext());
             View decorView = getWindow().getDecorView();
             decorView.setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -163,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             Log.d("DEBUG", "GeForce Now app is not installed.");
         }
+
     }
 
     public void launchXcloud(View view) {
@@ -180,6 +222,16 @@ public class MainActivity extends AppCompatActivity {
         launchApp("com.nvidia.geforcenow");
     }
 
+    public void launchChrome(View view) {
+        Log.d("DEBUG", "Launching Chrome");
+        launchApp("com.android.chrome");
+    }
+
+    public void launchYouTube(View view) {
+        Log.d("DEBUG", "Launching Youtube");
+        launchApp("com.google.android.youtube");
+    }
+
     public void launchDiscord(View view) {
         Log.d("DEBUG", "Launching Discord Invite");
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/W7nchCbu")));
@@ -190,9 +242,14 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
     }
 
-    public void launchCortex(View view) {
-        Log.d("DEBUG", "Launching Razer Cortex");
-        launchApp("com.razer.cortex");
+    public void launchKishi(View view) {
+        if (kishiConnected) {
+            Log.d("DEBUG", "Launching Razer Kishi");
+            launchApp("com.razer.mobilegamepad.en");
+        } else {
+            Log.d("DEBUG", "Kishi is not connected.");
+            //TODO add nice roast here.
+        }
     }
 
     public void launchPlaystore(View view) {
@@ -200,16 +257,16 @@ public class MainActivity extends AppCompatActivity {
         launchApp("com.android.vending");
     }
 
-    public void launchGameDraw(View view) {
-        Log.d("DEBUG", "Launching Google Play Games Library");
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.google.android.play.games", "com.google.android.apps.play.games.features.gamefolder.GameFolderTrampolineActivity"));
-        if (getPackageManager().resolveActivity(intent, 0) != null) {
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "No app installed that can perform this action", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    public void launchGameDraw(View view) {
+//        Log.d("DEBUG", "Launching Google Play Games Library");
+//        Intent intent = new Intent();
+//        intent.setComponent(new ComponentName("com.google.android.play.games", "com.google.android.apps.play.games.features.gamefolder.GameFolderTrampolineActivity"));
+//        if (getPackageManager().resolveActivity(intent, 0) != null) {
+//            startActivity(intent);
+//        } else {
+//            Toast.makeText(this, "No app installed that can perform this action", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public String getBattery() {
         BatteryManager bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
@@ -225,5 +282,4 @@ public class MainActivity extends AppCompatActivity {
             Log.d("DEBUG", "Looks like you don't have " + packageName + " installed.");
         }
     }
-
 }

@@ -23,22 +23,6 @@
         app:srcCompat="@drawable/icoph" />
 
     <ImageButton
-        android:id="@+id/btn_razer"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#00FFFFFF"
-        android:onClick="launchCortex"
-        android:padding="5dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028"
-        app:srcCompat="@drawable/icon_razer" />
-
-    <ImageButton
         android:id="@+id/btn_stadia"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -69,20 +53,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icoph" />
 
-    <ImageButton
-        android:id="@+id/btn_appdraw"
+    <ImageView
+        android:id="@+id/iv_razer"
         android:layout_width="73dp"
         android:layout_height="75dp"
-        android:backgroundTint="#00FFFFFF"
-        android:onClick="launchGameDraw"
+        android:background="@drawable/icon_razer_unplugged"
+        android:onClick="launchKishi"
         android:padding="5dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97"
-        app:srcCompat="@drawable/ico_appdraw" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <ImageButton
         android:id="@+id/btn_settings"
@@ -110,16 +93,16 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.623"
+        app:layout_constraintHorizontal_bias="0.732"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.939"
+        app:layout_constraintVertical_bias="0.936"
         app:srcCompat="@drawable/ico_discord" />
 
     <ImageButton
         android:id="@+id/btn_playstore"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="launchPlaystore"
         android:padding="5dp"
@@ -129,7 +112,7 @@
         app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937"
+        app:layout_constraintVertical_bias="0.94"
         app:srcCompat="@drawable/ico_play" />
 
     <TextView
@@ -141,8 +124,6 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_razer"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_bat"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.041" />
@@ -158,5 +139,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.026"
         app:srcCompat="@drawable/ico_battery_empty" />
+
+    <ImageView
+        android:id="@+id/iv_chrome"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:onClick="launchChrome"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.939"
+        app:srcCompat="@drawable/ico_chrome" />
+
+    <ImageView
+        android:id="@+id/iv_youtube"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:onClick="launchYouTube"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.623"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936"
+        app:srcCompat="@drawable/ico_youtube" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
