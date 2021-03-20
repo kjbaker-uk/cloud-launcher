@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.hardware.usb.UsbManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             setBatIcon();
         }
     };
+    MediaPlayer mediaPlayer;
     private TextView batteryText;
     private BroadcastReceiver minuteUpdateReceiver;
     private String displayBat;
@@ -210,42 +212,50 @@ public class MainActivity extends AppCompatActivity {
     public void launchXcloud(View view) {
         Log.d("DEBUG", "Launching X Cloud");
         launchApp("com.gamepass");
+        playSoundFile(R.raw.button);
     }
 
     public void launchStadia(View view) {
         Log.d("DEBUG", "Launching Stadia");
         launchApp("com.google.stadia.android");
+        playSoundFile(R.raw.button);
     }
 
     public void launchGnow(View view) {
         Log.d("DEBUG", "Launching GeForce Now");
         launchApp("com.nvidia.geforcenow");
+        playSoundFile(R.raw.button);
     }
 
     public void launchChrome(View view) {
         Log.d("DEBUG", "Launching Chrome");
         launchApp("com.android.chrome");
+        playSoundFile(R.raw.button);
     }
 
     public void launchYouTube(View view) {
         Log.d("DEBUG", "Launching Youtube");
         launchApp("com.google.android.youtube");
+        playSoundFile(R.raw.button);
     }
 
     public void launchDiscord(View view) {
         Log.d("DEBUG", "Launching Discord Invite");
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/W7nchCbu")));
+        playSoundFile(R.raw.button);
     }
 
     public void launchSettings(View view) {
         Log.d("DEBUG", "Launching settings");
         startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+        playSoundFile(R.raw.button);
     }
 
     public void launchKishi(View view) {
         if (kishiConnected) {
             Log.d("DEBUG", "Launching Razer Kishi");
             launchApp("com.razer.mobilegamepad.en");
+            playSoundFile(R.raw.button);
         } else {
             Log.d("DEBUG", "Kishi is not connected.");
             //TODO add nice roast here.
@@ -255,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
     public void launchPlaystore(View view) {
         Log.d("DEBUG", "Launching Google Play Store");
         launchApp("com.android.vending");
+        playSoundFile(R.raw.button);
     }
 
 //    public void launchGameDraw(View view) {
@@ -281,5 +292,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("DEBUG", "Looks like you don't have " + packageName + " installed.");
         }
+    }
+
+    //play a soundfile
+    public void playSoundFile(Integer fileName) {
+        mediaPlayer = MediaPlayer.create(this, fileName);
+        mediaPlayer.start();
     }
 }

@@ -4,28 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@drawable/bgtest"
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/btn_gnow"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginEnd="60dp"
+        android:id="@+id/btn_provile"
+        android:layout_width="80dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="#00FFFFFF"
-        android:onClick="launchGnow"
+        android:onClick="launchSettings"
         android:padding="5dp"
         android:scaleType="fitCenter"
-        android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icoph" />
+        app:layout_constraintVertical_bias="0.012"
+        app:srcCompat="@drawable/ico_profile" />
+
+    <ImageButton
+        android:id="@+id/btn_cell_signal"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="launchSettings"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ico_signal" />
+
+    <ImageButton
+        android:id="@+id/btn_wifi"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="launchSettings"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ico_wifi" />
 
     <ImageButton
         android:id="@+id/btn_stadia"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="launchStadia"
         android:padding="5dp"
@@ -36,12 +72,13 @@
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toEndOf="@+id/btn_xcloud"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.417"
         app:srcCompat="@drawable/icoph" />
 
     <ImageButton
         android:id="@+id/btn_xcloud"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="52dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="launchXcloud"
@@ -51,6 +88,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.417"
+        app:srcCompat="@drawable/icoph" />
+
+    <ImageButton
+        android:id="@+id/btn_gnow"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="launchGnow"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:tintMode="src_over"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.417"
         app:srcCompat="@drawable/icoph" />
 
     <ImageView
@@ -65,22 +119,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <ImageButton
         android:id="@+id/btn_settings"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="launchSettings"
         android:padding="5dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintHorizontal_bias="0.927"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ico_settings" />
 
     <ImageButton
@@ -93,10 +148,10 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.732"
+        app:layout_constraintHorizontal_bias="0.744"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936"
+        app:layout_constraintVertical_bias="0.815"
         app:srcCompat="@drawable/ico_discord" />
 
     <ImageButton
@@ -109,16 +164,29 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintHorizontal_bias="0.365"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94"
+        app:layout_constraintVertical_bias="0.819"
         app:srcCompat="@drawable/ico_play" />
+
+    <ImageView
+        android:id="@+id/iv_bat"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ico_battery_empty" />
 
     <TextView
         android:id="@+id/tv_bat"
         android:layout_width="59dp"
         android:layout_height="23dp"
+        android:layout_marginStart="4dp"
         android:text="0 %"
         android:textAlignment="textStart"
         android:textColor="#FFFFFF"
@@ -126,19 +194,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_bat"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041" />
-
-    <ImageView
-        android:id="@+id/iv_bat"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026"
-        app:srcCompat="@drawable/ico_battery_empty" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <ImageView
         android:id="@+id/iv_chrome"
@@ -147,10 +203,10 @@
         android:onClick="launchChrome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.939"
+        app:layout_constraintVertical_bias="0.82"
         app:srcCompat="@drawable/ico_chrome" />
 
     <ImageView
@@ -160,10 +216,10 @@
         android:onClick="launchYouTube"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.623"
+        app:layout_constraintHorizontal_bias="0.632"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936"
+        app:layout_constraintVertical_bias="0.815"
         app:srcCompat="@drawable/ico_youtube" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
