@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     public boolean kishiConnected = false;
+    WirelessManager mWirelessManager = new WirelessManager();
     KishiManager km = new KishiManager();
     BroadcastReceiver mBatteryReceiver = new BroadcastReceiver() {
         @Override
@@ -45,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         batteryText.setText(String.format("%s%%", getBattery()));
         registerBatteryReceiver();
         setIcons();
-
 
         BroadcastReceiver mUsbAttachReceiver = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
@@ -137,6 +138,15 @@ public class MainActivity extends AppCompatActivity {
             kishiConnected = false;
             ImageView img = (ImageView) findViewById(R.id.iv_razer);
             img.setImageResource(R.drawable.icon_razer_unplugged);
+        }
+
+        // Change WiFi icon to show enabled or disabled state.
+        if (mWirelessManager.checkWiFi(getApplicationContext())) {
+            ImageView img = (ImageView) findViewById(R.id.iv_wifi);
+            img.setImageResource(R.drawable.ico_wifi);
+        } else {
+            ImageView img = (ImageView) findViewById(R.id.iv_wifi);
+            img.setImageResource(R.drawable.ico_wifi_disabled);
         }
     }
 
@@ -248,6 +258,11 @@ public class MainActivity extends AppCompatActivity {
     public void launchSettings(View view) {
         Log.d("DEBUG", "Launching settings");
         startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+        playSoundFile(R.raw.button);
+    }
+
+    public void launchWiFiSettings(View view) {
+        startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 0);
         playSoundFile(R.raw.button);
     }
 
