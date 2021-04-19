@@ -20,6 +20,9 @@ As the apps feature-set continues to be merged into this new fork, I will contin
 - Min Android 9, Max 11.
 - No permissons required.
 
+## Not a developer!
+No worries download the clauncher.apk from the releases page.
+
 ## Compiling
 
 The project is built with gradle, so maintenence and compilation is very straightforward. 
