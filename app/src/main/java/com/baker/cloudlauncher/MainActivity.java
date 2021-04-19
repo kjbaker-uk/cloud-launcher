@@ -1,9 +1,11 @@
 package com.baker.cloudlauncher;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.hardware.usb.UsbManager;
@@ -11,15 +13,23 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.InputDevice;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.sdsmdg.tastytoast.TastyToast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,11 +46,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView batteryText;
     private BroadcastReceiver minuteUpdateReceiver;
     private String displayBat;
+    private boolean isOled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences pref = this.getPreferences(Context.MODE_PRIVATE);
+        isOled = pref.getBoolean("oled", false);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         batteryText = findViewById(R.id.tv_bat);
@@ -148,6 +161,16 @@ public class MainActivity extends AppCompatActivity {
             ImageView img = (ImageView) findViewById(R.id.iv_wifi);
             img.setImageResource(R.drawable.ico_wifi_disabled);
         }
+
+
+        if (!isOled) {
+            ImageView img = (ImageView) findViewById(R.id.iv_oled);
+            img.setImageResource(R.drawable.ico_oled_off);
+        } else {
+            ImageView img = (ImageView) findViewById(R.id.iv_oled);
+            img.setImageResource(R.drawable.ico_oled_on);
+        }
+
     }
 
     @Override
@@ -266,6 +289,11 @@ public class MainActivity extends AppCompatActivity {
         playSoundFile(R.raw.button);
     }
 
+    public void launchBatSettings(View view) {
+        startActivityForResult(new Intent(Intent.ACTION_POWER_USAGE_SUMMARY), 0);
+        playSoundFile(R.raw.button);
+    }
+
     public void launchKishi(View view) {
         if (kishiConnected) {
             Log.d("DEBUG", "Launching Razer Kishi");
@@ -281,6 +309,34 @@ public class MainActivity extends AppCompatActivity {
         Log.d("DEBUG", "Launching Google Play Store");
         launchApp("com.android.vending");
         playSoundFile(R.raw.button);
+    }
+
+    public void toggleOled(View view) {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Log.d("DEBUG", "Toggling OLED support.");
+        if (isOled) {
+            playSoundFile(R.raw.button);
+            TastyToast.makeText(getApplicationContext(), "OLED Mode disabled.", TastyToast.LENGTH_SHORT, TastyToast.DEFAULT);
+            isOled = false;
+            editor.putBoolean("oled", false);
+            editor.apply();
+            ImageView img = (ImageView) findViewById(R.id.iv_oled);
+            img.setImageResource(R.drawable.ico_oled_off);
+            ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.const_layout);
+            constraintLayout.setBackgroundResource(R.drawable.bg_dark);
+
+        } else {
+            playSoundFile(R.raw.button);
+            TastyToast.makeText(getApplicationContext(), "OLED Mode enabled.", TastyToast.LENGTH_SHORT, TastyToast.DEFAULT);
+            isOled = true;
+            editor.putBoolean("oled", true);
+            editor.apply();
+            ImageView img = (ImageView) findViewById(R.id.iv_oled);
+            img.setImageResource(R.drawable.ico_oled_on);
+            ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.const_layout);
+            constraintLayout.setBackgroundResource(R.drawable.bg_black);
+        }
     }
 
 //    public void launchGameDraw(View view) {
@@ -313,5 +369,16 @@ public class MainActivity extends AppCompatActivity {
     public void playSoundFile(Integer fileName) {
         mediaPlayer = MediaPlayer.create(this, fileName);
         mediaPlayer.start();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((event.getSource() & InputDevice.SOURCE_GAMEPAD)
+                == InputDevice.SOURCE_GAMEPAD) {
+            if (keyCode == 82) {
+                Toast.makeText(this, "Home Button Pressed", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

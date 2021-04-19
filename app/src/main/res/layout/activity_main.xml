@@ -2,27 +2,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/const_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgtest"
+    android:background="@drawable/bg_dark"
     tools:context=".MainActivity">
 
-    <ImageButton
-        android:id="@+id/btn_provile"
-        android:layout_width="80dp"
-        android:layout_height="84dp"
+
+    <ImageView
+        android:id="@+id/iv_oled"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="5dp"
         android:backgroundTint="#00FFFFFF"
-        android:onClick="launchSettings"
+        android:onClick="toggleOled"
         android:padding="5dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintHorizontal_bias="0.868"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012"
-        app:srcCompat="@drawable/ico_profile" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/iv_wifi"
@@ -48,7 +49,6 @@
         android:onClick="launchStadia"
         android:padding="5dp"
         android:scaleType="fitCenter"
-        android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_gnow"
         app:layout_constraintHorizontal_bias="0.511"
@@ -66,7 +66,6 @@
         android:onClick="launchXcloud"
         android:padding="5dp"
         android:scaleType="fitCenter"
-        android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -82,7 +81,6 @@
         android:onClick="launchGnow"
         android:padding="5dp"
         android:scaleType="fitCenter"
-        android:tintMode="src_over"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -156,6 +154,7 @@
         android:id="@+id/iv_bat"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:onClick="launchBatSettings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.121"
@@ -169,6 +168,7 @@
         android:layout_width="59dp"
         android:layout_height="23dp"
         android:layout_marginStart="4dp"
+        android:onClick="launchBatSettings"
         android:text="0 %"
         android:textAlignment="textStart"
         android:textColor="#FFFFFF"

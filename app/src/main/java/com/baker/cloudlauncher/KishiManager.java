@@ -23,4 +23,5 @@ public class KishiManager {
         }
         return false;
     }
+
 }
