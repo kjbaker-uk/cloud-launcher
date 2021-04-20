@@ -12,9 +12,9 @@ As the apps feature-set continues to be merged into this new fork, I will contin
 - Built from scratch to add a console like feel.
 - Clean and simple interface.
 - Navigate via touch or Razer Kishi gamepad buttons.
-- Hardware support for batter status, charging, Wi-Fi, settings.
+- Hardware support for battery status, charging, Wi-Fi, settings.
 - OLED mode for devices that support it.
-- Hot link icons for Chrome, Playstore, youTubem Discord.
+- Hot link icons for Chrome, Playstore, YouTube and Discord.
 - Support all the major Cloud gaming platforms.
 - Gesture support
 - Min Android 9, Max 11.
