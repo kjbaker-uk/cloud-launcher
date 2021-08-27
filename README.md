@@ -51,7 +51,7 @@ Please fork this repository and contribute back using [pull requests](https://gi
 
 ## Changelog
 
-The full changelog for the app can be found on my discord [here](https://discord.gg/76QENp79).
+The full changelog for the app can be found on my discord [here](https://discord.gg/U7pxgbWPMg).
 
 ## To sync with Cloud Launcher
 
